@@ -12,9 +12,9 @@ import java.util.Set;
 
 public class StudyDashboard {
 
-    private Set<String> reviewers = new HashSet<>();
-
-    private Set<String> reviews = new HashSet<>();
+    /*    private Set<String> reviewers = new HashSet<>();
+        private Set<String> reviews = new HashSet<>();*/
+    private Set<StudyReview> studyReviews = new HashSet<>();
 
     /**
      * 스터디 리뷰 이슈에 작성되어 있는 리뷰어 목록과 리뷰를 읽어옵니다.
@@ -27,23 +27,23 @@ public class StudyDashboard {
 
         List<GHIssueComment> reviews = issue.getComments();
         for (GHIssueComment review : reviews) {
-            reviewers.add(review.getUserName());
-            this.reviews.add(review.getBody());
+            StudyReview studyReview = new StudyReview(review.getUserName(), review.getBody());
+//            System.out.println(studyReview.reviewer());
+//            System.out.println(studyReview.review());
+            studyReviews.add(studyReview);
+            // review.getUser().getLogin(); // github API 한번 더 호출하기 때문에 오래걸려서 getUserName 바로 가져오도록 사용했습니다.
         }
     }
 
-    public Set<String> getReviewers() {
-        return reviewers;
-    }
-
-    public Set<String> getReviews() {
-        return reviews;
+    public Set<StudyReview> getStudyReviews() {
+        return studyReviews;
     }
 
     public static void main(String[] args) throws IOException {
         StudyDashboard studyDashboard = new StudyDashboard();
         studyDashboard.loadReviews();
-        studyDashboard.getReviewers().forEach(System.out::println);
-        studyDashboard.getReviews().forEach(System.out::println);
+//        studyDashboard.getStudyReviews().forEach(studyReview -> System.out.println(studyReview));
+        studyDashboard.getStudyReviews().forEach(System.out::println);
+        // 출력 : StudyReview[reviewer=asqwklop12, review=솔직히 저는 스스로 자바를 어느정도 잘 안다고 생각했습니다.
     }
 }
