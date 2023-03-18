@@ -21,14 +21,12 @@ public class StudyDashboard {
         StudyDashboard studyDashboard = new StudyDashboard();
         studyDashboard.print();
     }
-    /* 자바 스터디 15번 진행하면서 참여했던 참가자들의 참석율 총 몇명이 참석했는지 참석안했는지 최종적인 참석율 표기
 
-     */
     private void print() throws IOException, InterruptedException {
         GitHub gitHub = GitHub.connect();
         GHRepository repository = gitHub.getRepository("whiteship/live-study");
         List<Participant> participants = new CopyOnWriteArrayList<>();
-
+        // 자바 스터디 15번 진행하면서 참여했던 참가자들의 참석율 총 몇명이 참석했는지 참석안했는지 최종적인 참석율 표기
         int totalNumberOfEvents = 15;
         ExecutorService service = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
@@ -74,9 +72,7 @@ public class StudyDashboard {
             writer.print(header(totalNumberOfEvents, participants.size()));
 
             participants.forEach(p -> {
-                double rate = getRate(totalNumberOfEvents, p);
-
-                String markdownForHomework = getMarkdownForParticipant(totalNumberOfEvents, p, rate);
+                String markdownForHomework = getMarkdownForParticipant(totalNumberOfEvents, p);
                 writer.print(markdownForHomework);
             });
         }
@@ -90,8 +86,8 @@ public class StudyDashboard {
         return rate;
     }
 
-    private String getMarkdownForParticipant(int totalNumberOfEvents, Participant p, double rate) {
-        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, totalNumberOfEvents), rate);
+    private String getMarkdownForParticipant(int totalNumberOfEvents, Participant p) {
+        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, totalNumberOfEvents), getRate(totalNumberOfEvents, p));
     }
 
     /**
