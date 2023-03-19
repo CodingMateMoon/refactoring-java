@@ -1,4 +1,4 @@
-package moon.codingmate._03_long_function._01_before;
+package moon.codingmate._03_long_function._07_replace_temp_with_query;
 
 import java.util.HashMap;
 import java.util.Map;
