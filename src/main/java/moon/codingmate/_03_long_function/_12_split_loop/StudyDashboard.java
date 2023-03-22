@@ -32,8 +32,19 @@ public class StudyDashboard {
     }
 
     private void print() throws IOException, InterruptedException {
-        GHRepository ghRepository = getGhRepository();
 
+        
+        /*
+        멀티스레드 프로그래밍 - 이슈 하나와 그 이슈에 달린 commment 최대 400개를 읽어오는 경우 이슈 15개에 대해 하나의 스레드로 진행하기에는 컴퓨터 리소스가 많이 남고 시간이 오래 걸립니다. 그래서 8개의 스레드를 동시에 돌릴 수 있고  스레드 풀은 8개. 풀에 들어있는 스레드를 가지고 총 15개 스레드를 만든다음 15개의 스레드가 끝날 때마다 countDownLatch 낮추다 다 될때까지 기다렸다가 ExecutorService를 정리하고 print 작업을 합니다.
+        List<Participant> participants = new CopyOnWriteArrayList<>();
+        동시성 concurrency 여러 스레드에서 하나의 리스트를 수정 - new Participant add . concurrent modification 여러 스레드에서 동시에 변경하면 해당 이슈가 발생가능. concurrent 작업에서 새로운 엘리먼트가 추가될 때 기존에 있는 것을 copy해서 만들기 때문에 concurrent에 안전한 List 입니다.
+         */
+        checkGithubIssues(getGhRepository());
+        new StudyPrinter(this.totalNumberOfEvents, this.participants).execute();
+        printFirstParticipants();
+    }
+
+    private void checkGithubIssues(GHRepository ghRepository) throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
 
@@ -44,21 +55,11 @@ public class StudyDashboard {
                 public void run() {
                     try {
                         GHIssue issue = ghRepository.getIssue(eventId);
+                        // github API를 쓰기 때문에 성능의 bottleneck
                         List<GHIssueComment> comments = issue.getComments();
-                        Date firstCreatedAt = null;
-                        Participant first = null;
-
-                        for (GHIssueComment comment : comments) {
-                            Participant participant = findParticipant(comment.getUserName(), participants);
-                            participant.setHomeworkDone(eventId);
-
-                            if (firstCreatedAt == null || comment.getCreatedAt().before(firstCreatedAt)) {
-                                firstCreatedAt = comment.getCreatedAt();
-                                first = participant;
-                            }
-                        }
-
-                        firstParticipantsForEachEvent[eventId - 1] = first;
+                        //for문 내에서 하나의 작업만 하도록 분리, 관련 있는 필드와 구현들을 묶고 해당 반복문을 메서드로 추출 -> checkHomework, findFirst
+                        checkHomework(comments, eventId);
+                        firstParticipantsForEachEvent[eventId - 1] = findFirst(comments);
                         latch.countDown();
                     } catch (IOException e) {
                         throw new IllegalArgumentException(e);
@@ -69,9 +70,28 @@ public class StudyDashboard {
 
         latch.await();
         service.shutdown();
+    }
 
-        new StudyPrinter(this.totalNumberOfEvents, this.participants).execute();
-        printFirstParticipants();
+    private Participant findFirst(List<GHIssueComment> comments) throws IOException {
+        Date firstCreatedAt = null;
+        Participant first = null;
+        for (GHIssueComment comment : comments) {
+            // bottleNeck from github API
+            Participant participant = findParticipant(comment.getUserName(), participants);
+            if (firstCreatedAt == null || comment.getCreatedAt().before(firstCreatedAt)) {
+                firstCreatedAt = comment.getCreatedAt();
+                first = participant;
+            }
+        }
+        return first;
+    }
+
+    private void checkHomework(List<GHIssueComment> comments, int eventId) {
+        for (GHIssueComment comment : comments) {
+            // bottleNeck from github API
+            Participant participant = findParticipant(comment.getUserName(), participants);
+            participant.setHomeworkDone(eventId);
+        }
     }
 
     private void printFirstParticipants() {
