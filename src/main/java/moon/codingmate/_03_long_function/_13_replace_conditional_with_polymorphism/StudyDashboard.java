@@ -26,10 +26,12 @@ public class StudyDashboard {
         StudyDashboard studyDashboard = new StudyDashboard(15);
         studyDashboard.print();
     }
-
+    /*
+    동적으로 타입에 따라 각기 다른 인스턴스를 만드려면 팩토리 메서드를 만들고 스위치문에 따라 printMode가 cvs면 cvsPrinter를 만드는 등 팩토리 메서드를 사용해서 동적으로 변경이 필요합니다. 타입 변경 시 코드 변경 필요하기 때문에 타입을 없애고 각각의 모드에 해당하는 프린터 클래스를 선택해서 사용
+     */
     private void print() throws IOException, InterruptedException {
         checkGithubIssues(getGhRepository());
-        new StudyPrinter(this.totalNumberOfEvents, this.participants, PrinterMode.MARKDOWN).execute();
+        new CvsPrinter(this.totalNumberOfEvents, this.participants).execute();
     }
 
     private GHRepository getGhRepository() throws IOException {
