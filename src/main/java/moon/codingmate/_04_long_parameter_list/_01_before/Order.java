@@ -11,6 +11,9 @@ public class Order {
         this.itemPrice = itemPrice;
     }
 
+    /*
+
+     */
     public double finalPrice() {
         double basePrice = this.quantity * this.itemPrice;
         int discountLevel = this.quantity > 100 ? 2 : 1;
