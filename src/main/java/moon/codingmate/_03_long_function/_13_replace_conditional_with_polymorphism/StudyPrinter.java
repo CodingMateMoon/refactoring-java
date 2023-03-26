@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class StudyPrinter {
 
+    // StudyPrinter는 유지하고 StudyPrinter를 상속받는 Printer들을 만듭니다.
     protected int totalNumberOfEvents;
 
     protected List<Participant> participants;
@@ -17,8 +18,6 @@ public abstract class StudyPrinter {
     }
 
     public abstract void execute() throws IOException;
-
-
     /**
      * |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:|
      */

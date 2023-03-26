@@ -31,7 +31,9 @@ public class StudyDashboard {
      */
     private void print() throws IOException, InterruptedException {
         checkGithubIssues(getGhRepository());
-        new CvsPrinter(this.totalNumberOfEvents, this.participants).execute();
+        new ConsolePrinter(this.totalNumberOfEvents, this.participants).execute();
+//        new CvsPrinter(this.totalNumberOfEvents, this.participants).execute();
+//        new MarkdownPrinter(this.totalNumberOfEvents, this.participants).execute();
     }
 
     private GHRepository getGhRepository() throws IOException {
