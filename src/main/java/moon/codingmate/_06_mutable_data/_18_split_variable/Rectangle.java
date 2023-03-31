@@ -6,13 +6,19 @@ public class Rectangle {
     private double area;
 
     public void updateGeometry(double height, double width) {
-        double temp = 2 * (height + width);
-        System.out.println("Perimeter: " + temp);
-        perimeter = temp;
+        // temp 역할 1 : perimeter
+        // double temp = 2 * (height + width);
+        final double perimeter = 2 * (height + width);
+        System.out.println("Perimeter: " + perimeter);
+        //둘레
+        this.perimeter = perimeter;
 
-        temp = height * width;
-        System.out.println("Area: " + temp);
-        area = temp;
+        // temp 역할 2 : area
+        // double temp = height * width;
+        final double area = height * width;
+        System.out.println("Area: " + area);
+        //넓이
+        this.area = area;
     }
 
     public double getPerimeter() {
