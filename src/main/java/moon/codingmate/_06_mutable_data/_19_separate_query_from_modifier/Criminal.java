@@ -4,7 +4,14 @@ import java.util.List;
 
 public class Criminal {
 
-    public String alertForMiscreant(List<Person> people) {
+    // Don, John 찾으면 알람만 끄기 : Modifier
+    public void alertForMiscreant(List<Person> people) {
+        if(!findMiscreant(people).isBlank())
+            setOffAlarms();
+    }
+
+    // 조회 : Query
+    public String findMiscreant(List<Person> people) {
         for (Person p : people) {
             if (p.getName().equals("Don")) {
                 setOffAlarms();
