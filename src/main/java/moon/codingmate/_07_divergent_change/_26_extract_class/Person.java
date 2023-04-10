@@ -2,37 +2,46 @@ package moon.codingmate._07_divergent_change._26_extract_class;
 
 public class Person {
 
+    //private final TelephoneNumber telephoneNumber = new TelephoneNumber();
+    private final TelephoneNumber telephoneNumber;
     private String name;
 
-    private String officeAreaCode;
-
-    private String officeNumber;
+    public Person(TelephoneNumber telephoneNumber, String name) {
+        this.telephoneNumber = telephoneNumber;
+        this.name = name;
+    }
 
     public String telephoneNumber() {
-        return this.officeAreaCode + " " + this.officeNumber;
+        return this.telephoneNumber.toString();
     }
 
     public String name() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public TelephoneNumber getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    /*
+    TelephoneNumber를 받고 Person이 계속 전화번호를 바꾸는 일을 가질 수도 있습니다.
+    public void setName(String name) { this.name = name;
     }
 
     public String officeAreaCode() {
-        return officeAreaCode;
+        return telephoneNumber.officeAreaCode();
     }
 
     public void setOfficeAreaCode(String officeAreaCode) {
-        this.officeAreaCode = officeAreaCode;
+        telephoneNumber.setOfficeAreaCode(officeAreaCode);
     }
 
     public String officeNumber() {
-        return officeNumber;
+        return telephoneNumber.officeNumber();
     }
 
     public void setOfficeNumber(String officeNumber) {
-        this.officeNumber = officeNumber;
+        telephoneNumber.setOfficeNumber(officeNumber);
     }
+     */
 }
