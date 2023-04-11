@@ -13,16 +13,25 @@ public class Customer {
 
     public Customer(String name, double discountRate) {
         this.name = name;
-        this.discountRate = discountRate;
-        this.contract = new CustomerContract(dateToday());
+        // this.discountRate = discountRate;
+        // 할인율이 CustomerContract와 연관이 있다면 해당 클래스로 이동
+        this.contract = new CustomerContract(dateToday(), discountRate);
     }
 
     public double getDiscountRate() {
-        return discountRate;
+        return this.contract.getDiscountRate();
     }
 
+    public void setDiscountRate(double discountRate) {
+        this.contract.setDiscountRate(discountRate);
+    }
+
+    // move field만 했지만 추후에는 해당 function들을 CustomerContract로 옮기고 위임하는 것이 좋을 수도 있습니다. (move function)
+    // 등급이 올라가면 3프로 더 할인
     public void becomePreferred() {
-        this.discountRate += 0.03;
+        // getter, setter로 추상화한 후 CustomerContract 클래스로 옮깁니다.
+        this.setDiscountRate(this.getDiscountRate() + 0.03);
+        //this.discountRate += 0.03;
         // 다른 작업들
     }
 
