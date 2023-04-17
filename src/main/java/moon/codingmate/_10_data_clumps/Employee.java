@@ -3,19 +3,17 @@ package moon.codingmate._10_data_clumps;
 public class Employee {
 
     private String name;
+    private TelephoneNumber personalPhoneNumber;
 
-    private String personalAreaCode;
-
-    private String personalNumber;
-
-    public Employee(String name, String personalAreaCode, String personalNumber) {
+    public Employee(String name, TelephoneNumber personalPhoneNumber) {
         this.name = name;
-        this.personalAreaCode = personalAreaCode;
-        this.personalNumber = personalNumber;
+        this.personalPhoneNumber = personalPhoneNumber;
     }
 
     public String personalPhoneNumber() {
-        return personalAreaCode + "-" + personalNumber;
+
+//        return personalAreaCode + "-" + personalNumber;
+        return this.personalPhoneNumber.toString();
     }
 
     public String getName() {
@@ -26,6 +24,21 @@ public class Employee {
         this.name = name;
     }
 
+    public TelephoneNumber getPersonalPhoneNumber() {
+        return personalPhoneNumber;
+    }
+
+    /* 데이터 뭉치
+    private String personalAreaCode;
+    private String personalNumber;
+    public Employee(String name, String personalAreaCode, String personalNumber) {
+        this.name = name;
+        this.personalAreaCode = personalAreaCode;
+        this.personalNumber = personalNumber;
+    }
+     */
+
+    /*
     public String getPersonalAreaCode() {
         return personalAreaCode;
     }
@@ -41,4 +54,6 @@ public class Employee {
     public void setPersonalNumber(String personalNumber) {
         this.personalNumber = personalNumber;
     }
+
+     */
 }
