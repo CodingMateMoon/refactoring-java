@@ -18,12 +18,12 @@ public class Office {
 
     public String getOfficeAreCode() {
 //        return officeAreCode;
-        return this.officePhoneNumber.getPersonalAreaCode();
+        return this.officePhoneNumber.getAreaCode();
     }
 
     public void setOfficeAreCode(String officeAreCode) {
 //        this.officeAreCode = officeAreCode;
-        this.officePhoneNumber.setPersonalAreaCode(officeAreCode);
+        this.officePhoneNumber.setAreaCode(officeAreCode);
     }
 
     /*
