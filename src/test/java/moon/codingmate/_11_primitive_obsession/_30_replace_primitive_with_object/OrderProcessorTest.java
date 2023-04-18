@@ -1,4 +1,4 @@
-package moon.codingmate._11_primitive_obsession._30_repliace_primitive_with_object;
+package moon.codingmate._11_primitive_obsession._30_replace_primitive_with_object;
 
 import org.junit.jupiter.api.Test;
 
