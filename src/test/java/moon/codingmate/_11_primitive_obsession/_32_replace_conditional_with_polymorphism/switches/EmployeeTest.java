@@ -1,4 +1,4 @@
-package moon.codingmate._11_primitive_obsession._32_replace_conditional_with_polymorphism.swtiches;
+package moon.codingmate._11_primitive_obsession._32_replace_conditional_with_polymorphism.switches;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,8 @@ class EmployeeTest {
 
     @Test
     void fulltime() {
-        Employee employee = new Employee("full-time", List.of("spring", "jpa"));
+//        Employee employee = new Employee("full-time", List.of("spring", "jpa"));
+        Employee employee = new FullTimeEmployee();
         assertEquals(120, employee.vacationHours());
         assertTrue(employee.canAccessTo("new project"));
         assertTrue(employee.canAccessTo("spring"));
@@ -18,7 +19,8 @@ class EmployeeTest {
 
     @Test
     void partime() {
-        Employee employee = new Employee("part-time", List.of("spring", "jpa"));
+//        Employee employee = new Employee("part-time", List.of("spring", "jpa"));
+        Employee employee = new PartTimeEmployee(List.of("spring", "jpa"));
         assertEquals(80, employee.vacationHours());
         assertFalse(employee.canAccessTo("new project"));
         assertTrue(employee.canAccessTo("spring"));
@@ -26,7 +28,8 @@ class EmployeeTest {
 
     @Test
     void temporal() {
-        Employee employee = new Employee("temporal", List.of("jpa"));
+//        Employee employee = new Employee("temporal", List.of("jpa"));
+        Employee employee = new TemporalEmployee(List.of("jpa"));
         assertEquals(32, employee.vacationHours());
         assertFalse(employee.canAccessTo("new project"));
         assertFalse(employee.canAccessTo("spring"));
