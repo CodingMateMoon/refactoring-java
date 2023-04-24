@@ -1,6 +1,5 @@
-package moon.codingmate._33_replace_loop_with_pipeline;
+package moon.codingmate._13_loop._33_replace_loop_with_pipeline;
 
-import moon.codingmate._13_loop._33_replace_loop_with_pipeline.Author;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
