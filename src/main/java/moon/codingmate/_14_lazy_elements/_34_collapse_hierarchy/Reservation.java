@@ -14,5 +14,5 @@ public class Reservation {
     private String owner;
 
     private boolean paid;
-
+    private String courtNumber;
 }
