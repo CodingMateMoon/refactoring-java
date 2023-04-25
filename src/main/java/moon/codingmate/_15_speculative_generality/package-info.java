@@ -1,0 +1,1 @@
+package moon.codingmate._15_speculative_generality;
