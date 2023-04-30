@@ -1,0 +1,1 @@
+package moon.codingmate._18_middle_man;
