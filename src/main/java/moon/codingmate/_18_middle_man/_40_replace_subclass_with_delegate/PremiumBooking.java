@@ -11,17 +11,26 @@ public class PremiumBooking extends Booking {
         this.extra = extra;
     }
 
+    /*
     @Override
     public boolean hasTalkback() {
-        return this.show.hasOwnProperty("talkback");
+//        return this.show.hasOwnProperty("talkback");
+        // 실제 로직은 전부 PremiumDelegate에서 수행하고 있습니다.
+        return this.premiumDelegate.hasTalkback();
     }
+     */
 
+    /*
     @Override
     public double basePrice() {
         return Math.round(super.basePrice() + this.extra.getPremiumFee());
     }
+     */
 
+    /* Pull Members Up1
     public boolean hasDinner() {
         return this.extra.hasOwnProperty("dinner") && !this.isPeakDay();
     }
+     */
+
 }
